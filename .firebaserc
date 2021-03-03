@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-b4f53": {
+      "hosting": {
+        "angular": [
+          "angular-b4f53"
+        ]
+      }
+    }
+  }
+}
