@@ -12,6 +12,10 @@ import { map } from 'rxjs/operators';
 export class AppComponent {
   title = 'angular';
   myForm: FormGroup;
+  update = false;
+  key = "";
+  Username = "";
+  Password = "";
   
   constructor(
     private service : FirebaseServiceService
@@ -45,12 +49,28 @@ export class AppComponent {
       this.submitted = true;
     });
   }
+  onUpdate(){
+    this.service.update(this.key ,this.myForm.value)
+    .then(() => this.message = 'updated successfully!')
+    .catch(err => console.log(err));
+
+  }
 
   message = '';
 
-  edit(){
-    this.service.update("-MUtkPFbeYUenGPbEuZD" ,this.myForm.value)
-      .then(() => this.message = 'The tutorial was updated successfully!')
-      .catch(err => console.log(err));
+  edit(Key,username,password){
+
+    this.myForm = new FormGroup({
+      name: new FormControl(username),
+      password: new FormControl(password)
+      
+    });
+    this.key = Key
+    this.Username = username
+    this.Password = password
+    this.update = true;
+    
+    console.log(Key+","+username+"," + password);
   }
+
 }

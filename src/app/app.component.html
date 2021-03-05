@@ -3,7 +3,7 @@
   <h1>Test Form</h1>
   <br>
   <body>
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+    <form [formGroup]="myForm" >
       <div class="form-group">
         <label for="exampleInputEmail1">User name</label>
         <input type="text" formControlName="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter name">
@@ -13,10 +13,30 @@
         <input type="password" formControlName="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
       </div>
       <br>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <br>
-      <br>
-      <button (click)="edit()" class="btn btn-secondary">edit</button>
+
+      <button (click)="onSubmit(myForm)" class="btn btn-primary" [hidden]= update >Submit</button>
+      <button (click)="onUpdate()" class="btn btn-warning" [hidden]= !update>Update</button>
+
     </form>
+
+    <h1>Data</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">username</th>
+          <th scope="col">Passwprd</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngFor = "let data of model ; let i = index">
+        <tr>
+          <th scope="row">{{i + 1}}</th>
+          <td>{{data.name}}</td>
+          <td>{{data.password}}</td>
+          <td><button (click)="edit(data.key,data.name,data.password)" class="btn btn-secondary">edit</button></td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>
